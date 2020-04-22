@@ -29,23 +29,10 @@ public class BishopBlack implements Figure {
         }
         int size = Math.abs(dest.y - source.y);
         Cell[] steps = new Cell[size];
-        int deltaX = 0;
-        int deltaY = 0;
-        if (source.x < dest.x && source.y < dest.y) {
-            deltaX = 1;
-            deltaY = 1;
-        } else if (source.x > dest.x && source.y > dest.y) {
-            deltaX = -1;
-            deltaY = -1;
-        } else if (source.x > dest.x && source.y < dest.y) {
-            deltaX = -1;
-            deltaY = 1;
-        } else if (source.x < dest.x && source.y > dest.y){
-            deltaX = 1;
-            deltaY = -1;
-        }
         int x = source.x;
         int y = source.y;
+        int deltaX = Integer.compare(dest.x, source.x);
+        int deltaY = Integer.compare(dest.y, source.y);
         for (int index = 0; index < size; index++) {
             x += deltaX;
             y += deltaY;
@@ -55,10 +42,7 @@ public class BishopBlack implements Figure {
     }
 
     public boolean isDiagonal(Cell source, Cell dest) {
-        if(Math.abs(dest.x-source.x) == Math.abs(dest.y - source.y)){
-            return true;
-        }
-        return false;
+            return Math.abs(dest.x-source.x) == Math.abs(dest.y - source.y);
     }
 
     @Override

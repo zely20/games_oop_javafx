@@ -22,24 +22,23 @@ public class Logic {
     }
 
     public boolean move(Cell source, Cell dest) {
-        boolean rst = false;
-        int index = this.findBy(source);
-        if (index != -1) {
-            Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                for (Figure figure : figures) {
-                    for (int i = 0; i < steps.length ; i++) {
-                        if(steps[i].equals(figure.position())){
-                            return false;
-                        }
+            boolean result = true;
+            int index = this.findBy(source);
+            if (index != -1) {
+                Cell[] steps = this.figures[index].way(source, dest);
+                if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+                    if (!this.isWayFree(steps)) {
+                        result = false;
                     }
                 }
-                rst = true;
+            }
+            if (result) {
                 this.figures[index] = this.figures[index].copy(dest);
             }
+            return result;
         }
-        return rst;
-    }
+
+
 
     public void clean() {
         for (int position = 0; position != this.figures.length; position++) {
@@ -57,6 +56,15 @@ public class Logic {
             }
         }
         return rst;
+    }
+
+    public boolean isWayFree(Cell[] way) {
+        for(Cell cell : way) {
+            if(findBy(cell) != -1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
