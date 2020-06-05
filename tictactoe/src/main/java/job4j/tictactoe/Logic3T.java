@@ -1,5 +1,7 @@
 package job4j.tictactoe;
 
+import javafx.scene.Node;
+
 import java.util.Arrays;
 import java.util.function.Predicate;
 
@@ -47,7 +49,13 @@ public class Logic3T {
     }
 
     public boolean hasGap() {
+        int rsl = (int) Arrays.stream(this.table)
+                .flatMap(i -> Arrays.stream(i))
+                .filter(c -> c.hasMarkO() == true || c.hasMarkX() == true)
+                .count();
+        if(rsl == 9){
+            return false;
+        }
         return true;
     }
-
 }
