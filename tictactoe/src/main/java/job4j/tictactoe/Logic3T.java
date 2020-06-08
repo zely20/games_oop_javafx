@@ -41,7 +41,7 @@ public class Logic3T {
     }
 
     public boolean horizontalCheck(Predicate<Figure3T> predicate) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < this.table.length; i++) {
             if(this.fillBy(predicate, 0, i, 1, 0)){
                 return true;
             }
@@ -50,7 +50,7 @@ public class Logic3T {
     }
 
     public boolean verticalCheck(Predicate<Figure3T> predicate) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < this.table.length; i++) {
             if(this.fillBy(predicate, i, 0, 0, 1)){
                 return true;
             }
@@ -58,15 +58,9 @@ public class Logic3T {
         return false;
     }
 
-
     public boolean hasGap() {
-        int rsl = (int) Arrays.stream(this.table)
+        return   Arrays.stream(this.table)
                 .flatMap(i -> Arrays.stream(i))
-                .filter(c -> c.hasMarkO() == true || c.hasMarkX() == true)
-                .count();
-        if(rsl == 9){
-            return false;
-        }
-        return true;
+                .anyMatch(c -> c.hasMarkO() != true && c.hasMarkX() != true);
     }
 }
