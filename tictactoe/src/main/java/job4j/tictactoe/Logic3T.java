@@ -61,6 +61,6 @@ public class Logic3T {
     public boolean hasGap() {
         return   Arrays.stream(this.table)
                 .flatMap(i -> Arrays.stream(i))
-                .anyMatch(c -> c.hasMarkO() != true && c.hasMarkX() != true);
+                .anyMatch(c -> !c.hasMarkO()  && !c.hasMarkX());
     }
 }
